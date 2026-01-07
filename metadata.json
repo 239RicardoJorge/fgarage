@@ -1,0 +1,7 @@
+{
+  "name": "V8 Vintage Garage",
+  "description": "A high-performance website for a classic car mechanic, featuring 70s muscle car aesthetics, speed animations, and a modern gallery.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
