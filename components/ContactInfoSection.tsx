@@ -2,206 +2,108 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CONTACTS, MAP_URL } from '../constants';
-import { MapPin, Phone, Clock, ExternalLink, ShieldCheck } from 'lucide-react';
+import { MapPin, Clock, Phone, ExternalLink } from 'lucide-react';
+
+// Helper to format phone without country code
+const formatPhone = (phone: string) => phone.replace('+351 ', '');
 
 const ContactInfoSection: React.FC = () => {
   return (
-    <section id="contacto" className="py-32 relative bg-[#0a0a0a] overflow-hidden">
-      {/* Subtle Animated Background Glow */}
-      <motion.div
-        className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-600/5 blur-[200px] rounded-full"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, 30, 0],
-          opacity: [0.3, 0.5, 0.3]
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-          {/* Left: Info Grid */}
+    <section id="contacto" className="py-20 bg-[#0a0a0a]">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
+          {/* Info Panel */}
           <motion.div
-            className="p-10 lg:p-20 bg-zinc-900 border border-zinc-800"
-            initial={{ opacity: 0, x: -60 }}
+            className="bg-zinc-900 border border-zinc-800 p-10"
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
-            <motion.h2
-              className="font-heading text-7xl md:text-9xl text-white mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              OFICINA
-            </motion.h2>
+            <h2 className="font-heading text-5xl text-white mb-10">OFICINA</h2>
 
-            <div className="space-y-12">
-              {/* Address - with hover animation */}
-              <motion.div
-                className="flex items-start gap-6 group"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                <motion.div
-                  className="w-16 h-16 flex items-center justify-center border-2 border-amber-600 text-amber-500"
-                  whileHover={{
-                    backgroundColor: "rgb(217, 119, 6)",
-                    color: "#000",
-                    scale: 1.05
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <MapPin size={28} />
-                </motion.div>
-                <div>
-                  <h4 className="font-stencil text-xl text-zinc-500 uppercase mb-2">Instalações</h4>
-                  <p className="text-white text-2xl font-heading tracking-wide leading-tight">{CONTACTS.address}</p>
+            <div className="space-y-8">
+              {/* Location */}
+              <div className="flex gap-5">
+                <div className="w-10 h-10 bg-amber-600/10 border border-amber-600/30 flex items-center justify-center flex-shrink-0">
+                  <MapPin size={18} className="text-amber-500" />
                 </div>
-              </motion.div>
+                <div>
+                  <span className="text-amber-500 font-stencil text-[10px] uppercase tracking-[0.2em] block mb-2">
+                    Localização
+                  </span>
+                  <p className="text-white text-base leading-relaxed">
+                    {CONTACTS.address}
+                  </p>
+                </div>
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                {/* Hours */}
-                <motion.div
-                  className="flex items-start gap-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <motion.div
-                    className="text-amber-500"
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <Clock size={28} />
-                  </motion.div>
-                  <div>
-                    <h4 className="font-stencil text-sm text-zinc-500 uppercase mb-2">Escalas</h4>
-                    <p className="text-zinc-200 text-lg font-typewriter">{CONTACTS.hours}</p>
-                  </div>
-                </motion.div>
+              {/* Hours */}
+              <div className="flex gap-5">
+                <div className="w-10 h-10 bg-amber-600/10 border border-amber-600/30 flex items-center justify-center flex-shrink-0">
+                  <Clock size={18} className="text-amber-500" />
+                </div>
+                <div>
+                  <span className="text-amber-500 font-stencil text-[10px] uppercase tracking-[0.2em] block mb-2">
+                    Horário
+                  </span>
+                  <p className="text-white text-base leading-relaxed">
+                    {CONTACTS.hours}
+                  </p>
+                </div>
+              </div>
 
-                {/* Phone */}
-                <motion.div
-                  className="flex items-start gap-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <motion.div
-                    className="text-amber-500"
-                    whileHover={{ scale: 1.2, rotate: 15 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <Phone size={28} />
-                  </motion.div>
-                  <div>
-                    <h4 className="font-stencil text-sm text-zinc-500 uppercase mb-2">Linha Direta</h4>
-                    <p className="text-zinc-200 text-lg font-typewriter">{CONTACTS.phone}</p>
-                  </div>
-                </motion.div>
+              {/* Phone - without +351 */}
+              <div className="flex gap-5">
+                <div className="w-10 h-10 bg-amber-600/10 border border-amber-600/30 flex items-center justify-center flex-shrink-0">
+                  <Phone size={18} className="text-amber-500" />
+                </div>
+                <div>
+                  <span className="text-amber-500 font-stencil text-[10px] uppercase tracking-[0.2em] block mb-2">
+                    Telefone
+                  </span>
+                  <p className="text-white text-base leading-relaxed">
+                    {formatPhone(CONTACTS.phone)}
+                  </p>
+                </div>
               </div>
             </div>
-
-            {/* Certification Badge */}
-            <motion.div
-              className="mt-20 pt-10 border-t border-zinc-800 flex items-center gap-4 text-zinc-500"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-            >
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <ShieldCheck className="text-amber-600" />
-              </motion.div>
-              <span className="font-stencil uppercase tracking-[0.2em] text-sm">Qualidade Certificada F Garage</span>
-            </motion.div>
           </motion.div>
 
-          {/* Right: The MAP Action Area */}
+          {/* CTA Panel */}
           <motion.div
-            className="relative overflow-hidden group border border-zinc-800 min-h-[600px] flex items-end"
-            initial={{ opacity: 0, x: 60 }}
+            className="relative min-h-[400px] flex items-end overflow-hidden border border-zinc-800"
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
-            <motion.img
+            <img
               src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1200&auto=format"
-              alt="Industrial Workshop Entrance"
+              alt="Workshop"
               className="absolute inset-0 w-full h-full object-cover grayscale brightness-[0.2]"
-              whileHover={{ scale: 1.05, filter: "brightness(0.4)" }}
-              transition={{ duration: 1 }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
-            <div className="relative z-20 p-12 lg:p-20 w-full">
-              <motion.div
-                className="w-24 h-1 bg-amber-600 mb-8"
-                initial={{ width: 0 }}
-                whileInView={{ width: 96 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-              />
+            <div className="relative z-10 p-10 w-full">
+              <div className="w-12 h-[2px] bg-amber-600 mb-6" />
 
-              <motion.h3
-                className="text-white font-heading text-6xl md:text-8xl mb-6 tracking-tighter"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-              >
+              <h3 className="font-heading text-4xl text-white mb-3">
                 PRONTO PARA <span className="text-amber-500">RODAR?</span>
-              </motion.h3>
+              </h3>
 
-              <motion.p
-                className="text-zinc-400 text-xl font-typewriter mb-12 max-w-md"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 }}
-              >
+              <p className="text-zinc-400 text-sm mb-8 max-w-md leading-relaxed">
                 Localizados estrategicamente para servir os entusiastas de clássicos na região de Lisboa.
-              </motion.p>
+              </p>
 
-              <motion.a
+              <a
                 href={MAP_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-6 bg-amber-600 text-black font-black py-6 px-12"
-                whileHover={{ backgroundColor: "#fff", scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.3 }}
+                className="inline-flex items-center gap-3 bg-amber-600 text-black px-6 py-3 font-stencil text-sm uppercase tracking-wider hover:bg-white transition-colors"
               >
-                <span className="font-stencil text-2xl tracking-widest">OBTER ROTA NO MAPA</span>
-                <motion.div
-                  whileHover={{ x: 8, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ExternalLink size={24} />
-                </motion.div>
-              </motion.a>
+                Obter Direcções
+                <ExternalLink size={16} />
+              </a>
             </div>
-
-            {/* Animated Grid overlay */}
-            <motion.div
-              className="absolute inset-0 opacity-10 pointer-events-none"
-              style={{
-                backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), 
-                                 linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
-                backgroundSize: '40px 40px'
-              }}
-              animate={{ backgroundPosition: ['0px 0px', '40px 40px'] }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
           </motion.div>
         </div>
       </div>

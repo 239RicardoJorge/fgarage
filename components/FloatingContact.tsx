@@ -1,54 +1,56 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Phone, X, Settings } from 'lucide-react';
+import { Phone, X, MessageCircle } from 'lucide-react';
 import { CONTACTS } from '../constants';
+
+// Helper to format phone without country code
+const formatPhone = (phone: string) => phone.replace('+351 ', '');
 
 const FloatingContact: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleOpen = () => setIsOpen(!isOpen);
-
   return (
-    <div className="fixed bottom-10 right-10 z-[100]">
+    <div className="fixed bottom-6 right-6 z-[100]">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.5, x: 20 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            exit={{ opacity: 0, scale: 0.5, x: 20 }}
-            className="mb-6 flex flex-col gap-4 items-end"
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            className="absolute bottom-16 right-0 w-64 bg-zinc-900 border border-zinc-700 shadow-2xl overflow-hidden"
           >
-            <a
-              href={`https://wa.me/${CONTACTS.whatsapp}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-4 bg-[#25D366] text-white px-8 py-5 shadow-2xl hover:scale-105 transition-all font-stencil text-lg uppercase tracking-wider"
-            >
-              <span>WhatsApp Técnico</span>
-              <MessageCircle size={24} />
-            </a>
-            <a
-              href={`tel:${CONTACTS.phone.replace(/\s/g, '')}`}
-              className="flex items-center gap-4 bg-amber-600 text-black px-8 py-5 shadow-2xl hover:scale-105 transition-all font-stencil text-lg uppercase tracking-wider"
-            >
-              <span>Ligar p/ Oficina</span>
-              <Phone size={24} />
-            </a>
+            <div className="p-2 space-y-1">
+              <a
+                href={`https://wa.me/${CONTACTS.whatsapp}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 p-3 bg-[#25D366] text-white hover:bg-[#20b858] transition-colors"
+              >
+                <MessageCircle size={18} />
+                <span className="text-sm font-medium">WhatsApp</span>
+              </a>
+              <a
+                href={`tel:${CONTACTS.phone.replace(/\s/g, '')}`}
+                className="flex items-center gap-3 p-3 bg-zinc-800 text-white hover:bg-zinc-700 transition-colors"
+              >
+                <Phone size={18} />
+                <span className="text-sm font-medium">{formatPhone(CONTACTS.phone)}</span>
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <motion.button
-        onClick={toggleOpen}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className={`w-20 h-20 flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.5)] transition-all duration-300 ${
-          isOpen ? 'bg-zinc-800 text-white border-2 border-white/10' : 'bg-amber-600 text-black ring-4 ring-amber-600/20'
-        }`}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-14 h-14 flex items-center justify-center shadow-xl transition-all ${isOpen
+            ? 'bg-zinc-700 text-white'
+            : 'bg-amber-600 text-black hover:bg-amber-500'
+          }`}
       >
-        {isOpen ? <X size={36} /> : <Settings size={36} className="animate-[spin_4s_linear_infinite]" />}
-      </motion.button>
+        {isOpen ? <X size={22} /> : <Phone size={22} />}
+      </button>
     </div>
   );
 };

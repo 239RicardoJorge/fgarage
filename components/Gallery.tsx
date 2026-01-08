@@ -11,160 +11,98 @@ const Gallery: React.FC = () => {
   const prev = () => setCurrentIndex((prev) => (prev === 0 ? WORK_ITEMS.length - 1 : prev - 1));
 
   return (
-    <section id="trabalhos" className="py-32 bg-[#080808] relative overflow-hidden">
-      {/* Animated Background Grid */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), 
-                           linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px'
-        }}
-        animate={{ backgroundPosition: ['0px 0px', '80px 80px'] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
-        {/* Section Header with Reveal Animation */}
-        <motion.div
-          className="flex items-end justify-between mb-16 border-b-2 border-zinc-800 pb-8"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-        >
+    <section id="trabalhos" className="py-20 bg-[#080808]">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Header */}
+        <div className="flex items-end justify-between mb-10">
           <div>
-            <motion.span
-              className="text-amber-600 font-stencil text-xl tracking-tighter uppercase mb-2 block"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              Operações de Manutenção
-            </motion.span>
-            <motion.h2
-              className="font-heading text-6xl md:text-9xl text-white"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              PROJETOS
-            </motion.h2>
+            <span className="text-amber-500 font-stencil text-xs tracking-[0.2em] uppercase block mb-2">
+              Logbook de Operações
+            </span>
+            <h2 className="font-heading text-5xl md:text-6xl text-white">PROJETOS</h2>
           </div>
-          <motion.div
-            className="hidden md:block font-typewriter text-zinc-500 max-w-xs text-right"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-          >
-            Restauro completo, afinação de performance e consultoria mecânica de precisão.
-          </motion.div>
-        </motion.div>
+          <p className="hidden md:block text-zinc-500 text-sm max-w-xs text-right leading-relaxed">
+            Restauro completo e afinação de performance com engenharia de precisão.
+          </p>
+        </div>
 
-        {/* Gallery Card with Enhanced Animations */}
-        <motion.div
-          className="relative grid grid-cols-1 lg:grid-cols-12 gap-0 border-2 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden"
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* Image Pane */}
-          <div className="lg:col-span-8 aspect-square lg:aspect-video relative overflow-hidden group">
+        {/* Gallery */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 border border-zinc-800 bg-zinc-900/50">
+          {/* Image */}
+          <div className="lg:col-span-3 relative aspect-[4/3] overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentIndex}
                 src={WORK_ITEMS[currentIndex].image}
-                initial={{ scale: 1.2, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all duration-700"
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </AnimatePresence>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-            {/* Animated Gradient Overlay */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20"
-              animate={{ opacity: [0.8, 1, 0.8] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            />
-
-            {/* Corner Decorations */}
-            <div className="absolute top-4 left-4 w-12 h-12 border-t-2 border-l-2 border-amber-600/50" />
-            <div className="absolute bottom-4 right-4 w-12 h-12 border-b-2 border-r-2 border-amber-600/50" />
+            {/* Image Counter */}
+            <div className="absolute bottom-4 left-4 bg-black/70 px-3 py-1">
+              <span className="font-stencil text-amber-500 text-xs">
+                {String(currentIndex + 1).padStart(2, '0')} / {String(WORK_ITEMS.length).padStart(2, '0')}
+              </span>
+            </div>
           </div>
 
-          {/* Details Pane */}
-          <div className="lg:col-span-4 p-8 md:p-12 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-zinc-800">
+          {/* Details */}
+          <div className="lg:col-span-2 p-8 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-zinc-800">
             <div>
+              <div className="inline-block bg-amber-600 text-black px-3 py-1 mb-6">
+                <span className="font-stencil text-xs tracking-wider">
+                  LOGBOOK #{100 + WORK_ITEMS[currentIndex].id}
+                </span>
+              </div>
+
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={`meta-${currentIndex}`}
-                  initial={{ x: 30, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -30, opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="mb-8"
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: 15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -15 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <motion.div
-                    className="inline-block px-3 py-1 bg-amber-600 text-black font-stencil text-sm mb-6"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    LOGBOOK #{100 + WORK_ITEMS[currentIndex].id}
-                  </motion.div>
-                  <h3 className="text-4xl md:text-5xl font-heading text-white mb-6 uppercase tracking-tight">
+                  <h3 className="text-3xl font-heading text-white uppercase mb-4">
                     {WORK_ITEMS[currentIndex].title}
                   </h3>
-                  <p className="text-zinc-400 text-xl font-typewriter leading-relaxed">
+                  <p className="text-zinc-400 text-base leading-relaxed">
                     {WORK_ITEMS[currentIndex].description}
                   </p>
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            {/* Navigation Buttons with Enhanced Animations */}
-            <div className="flex gap-4">
-              <motion.button
+            {/* Navigation */}
+            <div className="flex gap-3 mt-8">
+              <button
                 onClick={prev}
-                className="flex-1 py-6 border border-zinc-700 text-white flex justify-center"
-                whileHover={{
-                  backgroundColor: "rgb(245, 158, 11)",
-                  color: "#000",
-                  borderColor: "rgb(245, 158, 11)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
+                className="flex-1 py-4 border border-zinc-700 text-white flex items-center justify-center hover:bg-amber-600 hover:text-black hover:border-amber-600 transition-all"
               >
-                <ChevronLeft size={32} />
-              </motion.button>
-              <motion.button
+                <ChevronLeft size={22} />
+              </button>
+              <button
                 onClick={next}
-                className="flex-1 py-6 bg-zinc-800 text-white flex justify-center"
-                whileHover={{
-                  backgroundColor: "rgb(245, 158, 11)",
-                  color: "#000"
-                }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
+                className="flex-1 py-4 bg-zinc-800 text-white flex items-center justify-center hover:bg-amber-600 hover:text-black transition-all"
               >
-                <ChevronRight size={32} />
-              </motion.button>
+                <ChevronRight size={22} />
+              </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Progress Indicator */}
-        <div className="mt-8 flex justify-center gap-2">
+        {/* Progress */}
+        <div className="mt-6 flex justify-center gap-2">
           {WORK_ITEMS.map((_, idx) => (
-            <motion.div
+            <button
               key={idx}
-              className={`h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-12 bg-amber-600' : 'w-4 bg-zinc-700'
-                }`}
-              whileHover={{ scale: 1.1 }}
+              onClick={() => setCurrentIndex(idx)}
+              className={`h-1 rounded-sm transition-all ${idx === currentIndex ? 'w-10 bg-amber-600' : 'w-4 bg-zinc-700 hover:bg-zinc-600'}`}
             />
           ))}
         </div>
