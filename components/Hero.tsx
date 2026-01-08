@@ -10,7 +10,6 @@ const heroBackgrounds = [
   '/images/hero-tire-chrome.png',
   '/images/hero-chevrolet-v8.png',
   '/images/abstract-engine-forms.png',
-  '/images/abstract-chrome-blue.png',
 ];
 
 // Spark particles - intensity based on rev level

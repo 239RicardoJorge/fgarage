@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Hero from './components/Hero';
+import Services from './components/Services';
 import Gallery from './components/Gallery';
+import Stats from './components/Stats';
 import Testimonials from './components/Testimonials';
 import ContactInfoSection from './components/ContactInfoSection';
 import FloatingContact from './components/FloatingContact';
@@ -50,7 +52,9 @@ const App: React.FC = () => {
       <Hero />
 
       <main>
+        <Services />
         <Gallery />
+        <Stats />
         <Testimonials />
         <ContactInfoSection />
       </main>
