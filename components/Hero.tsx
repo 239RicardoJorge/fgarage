@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { SLOGAN } from '../constants';
-import { ChevronDown } from 'lucide-react';
 
 const heroBackgrounds = [
   '/images/abstract-chrome-1.png',
@@ -118,12 +117,13 @@ const Hero: React.FC = () => {
 
   return (
     <section
+      id="hero"
       ref={containerRef}
       className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center"
     >
       {/* Backgrounds with parallax */}
       <motion.div
-        className="absolute inset-0 z-0"
+        className="absolute -inset-10 z-0"
         style={{ x: springX, y: springY }}
       >
         {heroBackgrounds.map((bg, idx) => {
@@ -132,7 +132,7 @@ const Hero: React.FC = () => {
             <motion.img
               key={bg}
               src={bg}
-              alt=""
+              alt={`F Garage - Oficina de carros clássicos - Imagem ${idx + 1}`}
               className="absolute inset-0 w-full h-full object-cover"
               initial={false}
               animate={{
@@ -146,8 +146,9 @@ const Hero: React.FC = () => {
             />
           );
         })}
-        <div className="absolute inset-0 bg-black/30" />
       </motion.div>
+      {/* Dark overlay - outside parallax container to stay fixed */}
+      <div className="absolute inset-0 bg-black/30 z-[1]" />
 
       {/* Dynamic sparks based on rev */}
       <Sparks key={sparkKey} intensity={revLevel} />
@@ -193,14 +194,14 @@ const Hero: React.FC = () => {
             className="inline-block px-8 py-2 border-l-4 border-black bg-amber-600 shadow-[4px_4px_0px_rgba(0,0,0,0.5)] pointer-events-auto cursor-pointer select-none"
             onMouseDown={handleRevDown}
             onTouchStart={handleRevDown}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.02, skewX: -2, skewY: 1 }}
             animate={{
               backgroundColor: revLevel > 0 ? `rgb(${245 + revLevel}, ${158 + revLevel * 5}, ${11 + revLevel * 10})` : 'rgb(217, 119, 6)',
               boxShadow: revLevel > 3
                 ? `0 0 ${revLevel * 5}px rgba(245, 158, 11, 0.6), 4px 4px 0px rgba(0,0,0,0.5)`
                 : '4px 4px 0px rgba(0,0,0,0.5)'
             }}
-            whileTap={{ scale: 0.98, y: 2 }}
+            whileTap={{ scale: 0.98, y: 2, skewX: 2 }}
           >
             <p className="font-stencil text-lg md:text-xl lg:text-2xl tracking-[0.15em] uppercase italic text-black">
               {SLOGAN}
@@ -246,30 +247,17 @@ const Hero: React.FC = () => {
         </motion.button>
       </motion.div>
 
-      {/* Bouncing scroll indicator */}
-      <motion.div
-        className="absolute bottom-20 left-1/2 -translate-x-1/2 z-30 text-white/40 cursor-pointer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{
-          opacity: { delay: 1.5 },
-          y: { duration: 1.2, repeat: Infinity, ease: "easeInOut" }
-        }}
-        onClick={() => scrollTo('trabalhos')}
-        whileHover={{ scale: 1.3, color: 'rgb(245, 158, 11)' }}
-      >
-        <ChevronDown size={32} />
-      </motion.div>
 
-      {/* Dots */}
+
+      {/* Dots - flatter pills like Gallery */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2">
         {heroBackgrounds.map((_, idx) => (
           <motion.button
             key={idx}
             onClick={() => setCurrentBg(idx)}
-            className={`h-2 rounded-full transition-all duration-300 ${idx === currentBg ? 'bg-amber-500 w-6' : 'bg-white/30 w-2 hover:bg-white/50'}`}
-            whileHover={{ scale: 1.5, y: -3 }}
-            whileTap={{ scale: 0.8 }}
+            className={`h-1 rounded-sm transition-all duration-300 ${idx === currentBg ? 'bg-amber-500 w-8' : 'bg-white/30 w-3 hover:bg-white/50'}`}
+            whileHover={{ scale: 1.3, y: -2 }}
+            whileTap={{ scale: 0.9 }}
           />
         ))}
       </div>

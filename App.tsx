@@ -1,10 +1,11 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import Hero from './components/Hero';
 import Gallery from './components/Gallery';
+import Testimonials from './components/Testimonials';
 import ContactInfoSection from './components/ContactInfoSection';
 import FloatingContact from './components/FloatingContact';
+import ScrollIndicator from './components/ScrollIndicator';
 import { BRAND_NAME } from './constants';
 import { Instagram, Youtube, Facebook } from 'lucide-react';
 
@@ -50,6 +51,7 @@ const App: React.FC = () => {
 
       <main>
         <Gallery />
+        <Testimonials />
         <ContactInfoSection />
       </main>
 
@@ -110,6 +112,7 @@ const App: React.FC = () => {
       </footer>
 
       <FloatingContact />
+      <ScrollIndicator />
     </div>
   );
 };

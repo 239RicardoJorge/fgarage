@@ -95,6 +95,7 @@ const Gallery: React.FC = () => {
               <motion.img
                 key={currentIndex}
                 src={WORK_ITEMS[currentIndex].image}
+                alt={`${WORK_ITEMS[currentIndex].title} - ${WORK_ITEMS[currentIndex].description} | F Garage Lisboa`}
                 custom={direction}
                 variants={slideVariants}
                 initial="enter"

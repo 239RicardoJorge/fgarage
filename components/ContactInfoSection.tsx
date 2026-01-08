@@ -83,7 +83,7 @@ const ContactInfoSection: React.FC = () => {
           >
             <motion.img
               src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1200&auto=format"
-              alt="Workshop"
+              alt="Interior da oficina F Garage em Lisboa - ferramentas e espaço de trabalho para restauro de carros clássicos"
               className="absolute inset-0 w-full h-full object-cover grayscale brightness-[0.2]"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.7 }}
