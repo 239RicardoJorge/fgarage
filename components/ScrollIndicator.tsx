@@ -66,7 +66,7 @@ const ScrollIndicator: React.FC = () => {
 
     return (
         <motion.div
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 cursor-pointer"
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 0.5 }}

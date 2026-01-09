@@ -1,7 +1,7 @@
 
 import { WorkItem, ContactInfo } from './types';
 
-export const SLOGAN = "Arranjamos carros";
+export const SLOGAN = "Arranjamos Carros";
 export const MAP_URL = "https://maps.app.goo.gl/6AmUNBUaj6x1HVwH6";
 export const BRAND_NAME = "F GARAGE";
 

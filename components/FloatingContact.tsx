@@ -69,9 +69,9 @@ const FloatingContact: React.FC = () => {
 
       <motion.button
         onClick={handleOpen}
-        className={`w-14 h-14 flex items-center justify-center shadow-xl transition-colors relative ${isOpen
-            ? 'bg-zinc-700 text-white'
-            : 'bg-amber-600 text-black hover:bg-amber-500'
+        className={`w-14 h-14 flex items-center justify-center shadow-xl relative overflow-hidden group ${isOpen
+          ? 'bg-zinc-700 text-white'
+          : 'bg-zinc-900 border border-zinc-700 text-white'
           }`}
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.9 }}
@@ -79,11 +79,16 @@ const FloatingContact: React.FC = () => {
           rotate: isOpen ? 180 : 0,
           boxShadow: isOpen
             ? '0 10px 25px rgba(0,0,0,0.3)'
-            : '0 10px 40px rgba(245, 158, 11, 0.4)'
+            : '0 10px 40px rgba(0, 0, 0, 0.4)'
         }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        {isOpen ? <X size={22} /> : <Phone size={22} />}
+        {!isOpen && (
+          <div className="absolute inset-0 bg-amber-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
+        )}
+        <div className={`relative z-10 transition-colors duration-300 ${!isOpen ? 'group-hover:text-black' : ''}`}>
+          {isOpen ? <X size={22} /> : <Phone size={22} />}
+        </div>
       </motion.button>
     </div>
   );

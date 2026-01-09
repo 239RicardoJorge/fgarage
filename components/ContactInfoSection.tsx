@@ -17,13 +17,13 @@ const infoItemVariants = {
 
 const ContactInfoSection: React.FC = () => {
   const contactItems = [
-    { icon: MapPin, label: 'Localização', value: CONTACTS.address },
-    { icon: Clock, label: 'Horário', value: CONTACTS.hours },
-    { icon: Phone, label: 'Telefone', value: formatPhone(CONTACTS.phone) },
+    { icon: MapPin, label: 'Localização', value: CONTACTS.address, href: MAP_URL },
+    { icon: Clock, label: 'Horário', value: CONTACTS.hours, href: null },
+    { icon: Phone, label: 'Telefone', value: formatPhone(CONTACTS.phone), href: `tel:${CONTACTS.phone.replace(/\s/g, '')}` },
   ];
 
   return (
-    <section id="contacto" className="py-20 bg-[#0a0a0a]">
+    <section id="contacto" className="py-24 bg-gradient-to-b from-[#0a0a0a] to-[#050505]" aria-label="Informações de contacto">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
           {/* Info Panel */}
@@ -55,18 +55,29 @@ const ContactInfoSection: React.FC = () => {
                   variants={infoItemVariants}
                 >
                   <motion.div
-                    className="w-10 h-10 bg-amber-600/10 border border-amber-600/30 flex items-center justify-center flex-shrink-0"
+                    className="w-12 h-12 bg-gradient-to-br from-amber-600/15 to-amber-700/5 border border-amber-600/30 flex items-center justify-center flex-shrink-0 transition-all duration-300"
                     whileHover={{ scale: 1.1, borderColor: "rgb(245, 158, 11)" }}
                   >
-                    <item.icon size={18} className="text-amber-500" />
+                    <item.icon size={20} className="text-amber-500" />
                   </motion.div>
-                  <div>
-                    <span className="text-amber-500 font-stencil text-[10px] uppercase tracking-[0.2em] block mb-2">
+                  <div className="flex-1">
+                    <span className="text-amber-500 font-stencil text-[10px] uppercase tracking-[0.25em] block mb-2">
                       {item.label}
                     </span>
-                    <p className="text-white text-base leading-relaxed group-hover:text-zinc-300 transition-colors">
-                      {item.value}
-                    </p>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target={item.href.startsWith('tel:') ? undefined : '_blank'}
+                        rel={item.href.startsWith('tel:') ? undefined : 'noopener noreferrer'}
+                        className="text-white text-base leading-relaxed hover:text-amber-500 transition-colors duration-300 block"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="text-white text-base leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">
+                        {item.value}
+                      </p>
+                    )}
                   </div>
                 </motion.div>
               ))}
@@ -122,8 +133,9 @@ const ContactInfoSection: React.FC = () => {
               <motion.a
                 href={MAP_URL}
                 target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-3 bg-amber-600 text-black px-6 py-3 font-stencil text-sm uppercase tracking-wider hover:bg-white transition-colors"
+                rel="noopener noreferrer"
+                aria-label="Obter direcções no Google Maps"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-amber-500 text-black px-8 py-4 font-stencil text-sm uppercase tracking-wider hover:from-amber-500 hover:to-amber-400 transition-all duration-300 shadow-lg shadow-amber-900/20"
                 whileHover={{ scale: 1.03, x: 5 }}
                 whileTap={{ scale: 0.98 }}
               >
